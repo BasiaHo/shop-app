@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import styles from './Product.module.scss';
 import PropTypes from 'prop-types';
 import ProductImage from '../ProductImage/ProductImage';
@@ -16,9 +16,9 @@ const Product = ({ id, name, title, basePrice, colors, sizes }) => {
     return `${toCapitalize(name)} shirt`;
   };
 
-  const getPrice = () => {
+  const calculatedPrice = useMemo(() => {
     return basePrice + currentSize.additionalPrice;
-  };
+  }, [basePrice, currentSize]);
 
   const sendToCart = (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ const Product = ({ id, name, title, basePrice, colors, sizes }) => {
     console.log('=========================');
     console.table({
       Name: getShirtName(),
-      Price: getPrice(),
+      Price: calculatedPrice,
       Size: currentSize.name,
       Color: currentColor,
     });
@@ -43,7 +43,7 @@ const Product = ({ id, name, title, basePrice, colors, sizes }) => {
       <ProductForm
         sendToCart={sendToCart}
         getShirtName={getShirtName}
-        getPrice={getPrice}
+        calculatedPrice={calculatedPrice}
         toCapitalize={toCapitalize}
         sizes={sizes}
         currentSize={currentSize}

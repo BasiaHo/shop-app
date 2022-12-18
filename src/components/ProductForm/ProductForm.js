@@ -8,7 +8,7 @@ import styles from './ProductForm.module.scss';
 export const ProductForm = ({
   sendToCart,
   getShirtName,
-  getPrice,
+  calculatedPrice,
   toCapitalize,
   sizes,
   currentSize,
@@ -21,7 +21,7 @@ export const ProductForm = ({
     <div>
       <header>
         <h2 className={styles.name}>{getShirtName()}</h2>
-        <span className={styles.price}>Price: ${getPrice()}</span>
+        <span className={styles.price}>Price: ${calculatedPrice}</span>
       </header>
       <form onSubmit={sendToCart}>
         <OptionSize
@@ -46,7 +46,7 @@ export const ProductForm = ({
 ProductForm.propTypes = {
   sendToCart: PropTypes.func.isRequired,
   getShirtName: PropTypes.func.isRequired,
-  getPrice: PropTypes.func.isRequired,
+  calculatedPrice: PropTypes.number.isRequired,
   toCapitalize: PropTypes.func.isRequired,
   sizes: PropTypes.arrayOf(
     PropTypes.shape({
